@@ -24,6 +24,12 @@ import NotificationsIcon from "@material-ui/icons/NotificationsOutlined";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { createStyles, withStyles, Theme } from "@material-ui/core/styles";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import ServerManager from "./Servers/ServerManager";
+import SiteManager from "./Sites/SiteManager";
+import ProductManager from "./Products/ProductManager";
+import TemplateManager from "./Templates/TemplateManager";
+import ComponentManager from "./Components/ComponentManager";
 
 const drawerWidth = 240;
 
@@ -129,36 +135,49 @@ class App extends React.Component<AppProps, AppState> {
       <React.Fragment>
         <Toolbar>
           <Typography variant="headline" color="inherit" noWrap>
-            Sitebuilder
+            SiteBuilder
           </Typography>
         </Toolbar>
         <Divider />
         <List>
-          <ListItem button>
-            <ListItemIcon>
-              <ServerIcon />
-            </ListItemIcon>
-            <ListItemText primary="Servers" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <ProductIcon />
-            </ListItemIcon>
-            <ListItemText primary="Products" />
-          </ListItem>
-          <ListItem button>
+          <ListItem button component={props => <Link {...props} to="/sites" />}>
             <ListItemIcon>
               <SitesIcon />
             </ListItemIcon>
             <ListItemText primary="Sites" />
           </ListItem>
-          <ListItem button>
+          <ListItem
+            button
+            component={props => <Link {...props} to="/servers" />}
+          >
+            <ListItemIcon>
+              <ServerIcon />
+            </ListItemIcon>
+            <ListItemText primary="Servers" />
+          </ListItem>
+          <ListItem
+            button
+            component={props => <Link {...props} to="/products" />}
+          >
+            <ListItemIcon>
+              <ProductIcon />
+            </ListItemIcon>
+            <ListItemText primary="Products" />
+          </ListItem>
+
+          <ListItem
+            button
+            component={props => <Link {...props} to="/templates" />}
+          >
             <ListItemIcon>
               <TemplatesIcon />
             </ListItemIcon>
             <ListItemText primary="Templates" />
           </ListItem>
-          <ListItem button>
+          <ListItem
+            button
+            component={props => <Link {...props} to="/components" />}
+          >
             <ListItemIcon>
               <ComponentsIcon />
             </ListItemIcon>
@@ -169,108 +188,88 @@ class App extends React.Component<AppProps, AppState> {
     );
 
     return (
-      <div className={classes.root}>
-        <CssBaseline />
-        <AppBar position="fixed" color="inherit" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Hidden smUp implementation="css">
-              <Typography variant="h6" color="inherit" noWrap>
-                SB
-              </Typography>
-            </Hidden>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+      <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar position="fixed" color="inherit" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Hidden smUp implementation="css">
+                <Typography variant="h6" color="inherit" noWrap>
+                  SB
+                </Typography>
+              </Hidden>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                />
               </div>
-              <InputBase
-                placeholder="Search…"
+              <div className={classes.grow} />
+              <Button color="inherit">Support</Button>
+              <IconButton color="inherit" aria-label="Notifications">
+                <Badge badgeContent={4} color="primary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton color="inherit" aria-label="Account">
+                <AccountIcon />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <nav className={classes.drawer}>
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Hidden smUp implementation="js">
+              <Drawer
+                variant="temporary"
+                anchor={theme.direction === "rtl" ? "right" : "left"}
+                open={this.state.mobileOpen}
+                onClose={this.handleDrawerToggle}
                 classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
+                  paper: classes.drawerPaper
                 }}
-              />
-            </div>
-            <div className={classes.grow} />
-            <Button color="inherit">Support</Button>
-            <IconButton color="inherit" aria-label="Notifications">
-              <Badge badgeContent={4} color="primary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton color="inherit" aria-label="Account">
-              <AccountIcon />
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer}>
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="js">
-            <Drawer
-              variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
-              open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="js">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-            dolor purus non enim praesent elementum facilisis leo vel. Risus at
-            ultrices mi tempus imperdiet. Semper risus in hendrerit gravida
-            rutrum quisque non tellus. Convallis convallis tellus id interdum
-            velit laoreet id donec ultrices. Odio morbi quis commodo odio aenean
-            sed adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-            integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-            eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-            quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-            vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-            donec massa sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-            ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-            elementum integer enim neque volutpat ac tincidunt. Ornare
-            suspendisse sed nisi lacus sed viverra tellus. Purus sit amet
-            volutpat consequat mauris. Elementum eu facilisis sed odio morbi.
-            Euismod lacinia at quis risus sed vulputate odio. Morbi tincidunt
-            ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam
-            aliquam sem et tortor. Habitant morbi tristique senectus et.
-            Adipiscing elit duis tristique sollicitudin nibh sit. Ornare aenean
-            euismod elementum nisi quis eleifend. Commodo viverra maecenas
-            accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam
-            ultrices sagittis orci a.
-          </Typography>
-        </main>
-      </div>
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="js">
+              <Drawer
+                classes={{
+                  paper: classes.drawerPaper
+                }}
+                variant="permanent"
+                open
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+          </nav>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Switch>
+              <Route exact path="/" component={SiteManager} />
+              <Route path="/servers" component={ServerManager} />
+              <Route path="/sites" component={SiteManager} />
+              <Route path="/products" component={ProductManager} />
+              <Route path="/templates" component={TemplateManager} />
+              <Route path="/components" component={ComponentManager} />
+            </Switch>
+          </main>
+        </div>
+      </Router>
     );
   }
 }
