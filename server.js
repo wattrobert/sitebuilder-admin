@@ -19,6 +19,13 @@ app.post('/api/world', (req, res) => {
         `I received your POST request. This is what you sent me: ${req.body.post}`,
     );
 });
+app.get('/api/sites', (req, res) => {
+    res.send([{
+        id: "0001",
+        name: "My First Site",
+        description: "A brief description about this site, likely to be later replaced by a site preview thumbnail."
+    }])
+})
 app.get('/api/oauth2callback', (req, res) => {
     console.log(req.headers);
     res.redirect('/sites');

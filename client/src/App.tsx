@@ -26,10 +26,11 @@ import Typography from "@material-ui/core/Typography";
 import { createStyles, withStyles, Theme } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import ServerManager from "./Servers/ServerManager";
-import SiteManager from "./Sites/SiteManager";
 import ProductManager from "./Products/ProductManager";
 import TemplateManager from "./Templates/TemplateManager";
 import ComponentManager from "./Components/ComponentManager";
+import SiteEditor from "./Sites/SiteEditor";
+import SiteList from "./Sites/SiteList";
 
 const drawerWidth = 240;
 
@@ -134,7 +135,7 @@ class App extends React.Component<AppProps, AppState> {
     const drawer = (
       <React.Fragment>
         <Toolbar>
-          <Typography variant="headline" color="inherit" noWrap>
+          <Typography variant="h5" color="inherit" noWrap>
             SiteBuilder
           </Typography>
         </Toolbar>
@@ -221,7 +222,7 @@ class App extends React.Component<AppProps, AppState> {
               <div className={classes.grow} />
               <Button color="inherit">Support</Button>
               <IconButton color="inherit" aria-label="Notifications">
-                <Badge badgeContent={4} color="primary">
+                <Badge badgeContent={4} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
@@ -262,7 +263,8 @@ class App extends React.Component<AppProps, AppState> {
             <Switch>
               {/* <Route exact path="/" component={SiteManager} /> */}
               <Route path="/servers" component={ServerManager} />
-              <Route path="/sites" component={SiteManager} />
+              <Route path="/sites" component={SiteList} />
+              <Route path="/site-editor" component={SiteEditor} />
               <Route path="/products" component={ProductManager} />
               <Route path="/templates" component={TemplateManager} />
               <Route path="/components" component={ComponentManager} />
