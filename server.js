@@ -19,6 +19,10 @@ app.post('/api/world', (req, res) => {
         `I received your POST request. This is what you sent me: ${req.body.post}`,
     );
 });
+app.get('/api/oauth2callback', (req, res) => {
+    console.log(req.headers);
+    res.redirect('/sites');
+})
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files

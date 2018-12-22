@@ -260,7 +260,7 @@ class App extends React.Component<AppProps, AppState> {
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Switch>
-              <Route exact path="/" component={SiteManager} />
+              {/* <Route exact path="/" component={SiteManager} /> */}
               <Route path="/servers" component={ServerManager} />
               <Route path="/sites" component={SiteManager} />
               <Route path="/products" component={ProductManager} />
