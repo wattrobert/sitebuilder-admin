@@ -22,7 +22,8 @@ import {
   CardMedia,
   CardActions,
   Button,
-  CardActionArea
+  CardActionArea,
+  Fab
 } from "@material-ui/core";
 
 const EditSiteLink = props => <Link to="/site-editor" {...props} />;
@@ -53,7 +54,13 @@ const styles = (theme: Theme) =>
       }
     },
     media: {
-      height: 140
+      height: 140,
+      position: "relative"
+    },
+    actions: {
+      position: "absolute",
+      right: 0,
+      bottom: theme.spacing.unit / 2
     }
   });
 
@@ -68,20 +75,21 @@ class SiteListItem extends React.Component<SiteListItemProps> {
               title={this.props.name}
               subheader={this.props.description}
             />
-            <CardMedia
-              className={classes.media}
-              image="/site-placeholder.jpg"
-              title={this.props.name}
-            />
           </CardActionArea>
-          <CardActions>
-            <IconButton aria-label="Edit site" component={EditSiteLink}>
-              <EditIcon fontSize="small" />
-            </IconButton>
-            <IconButton aria-label="Clone site">
-              <CloneIcon fontSize="small" />
-            </IconButton>
-          </CardActions>
+          <CardMedia
+            className={classes.media}
+            image="/site-placeholder.jpg"
+            title={this.props.name}
+          >
+            <CardActions className={classes.actions}>
+              <Fab size="small" aria-label="Edit site" component={EditSiteLink}>
+                <EditIcon />
+              </Fab>
+              <Fab size="small" aria-label="Clone site">
+                <CloneIcon />
+              </Fab>
+            </CardActions>
+          </CardMedia>
         </Card>
       </div>
     );
